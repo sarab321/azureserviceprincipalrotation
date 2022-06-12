@@ -19,10 +19,6 @@ stages:
 
     strategy:
       matrix:
-        linuxlts:
-          imageName: 'ubuntu-18.04'
-        linux:
-          imageName: 'ubuntu-20.04'
         windows:
           imageName: 'windows-latest'
 
