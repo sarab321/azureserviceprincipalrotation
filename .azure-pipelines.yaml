@@ -43,26 +43,26 @@ stages:
 
       # below job has timeout as under windows the test step has been running way too long inconsitently
       # NOTE: task is publishing test results automatically
-    - task: DotNetCoreCLI@2
-      timeoutInMinutes: ${{parameters.jobtimeout}}
-      inputs:
-        command: test
-        publishTestResults: true  #--logger trx --results-directory $(Agent.TempDirectory)
-        arguments: 'KeyVault-Rotation-Csharp.sln --configuration $(buildConfiguration) --no-build --no-restore --verbosity normal --logger "console;verbosity=detailed" --collect:"XPlat Code Coverage"'
-      displayName: 'dotnet test $(imageName) --configuration $(buildConfiguration)'
+    # - task: DotNetCoreCLI@2
+    #   timeoutInMinutes: ${{parameters.jobtimeout}}
+    #   inputs:
+    #     command: test
+    #     publishTestResults: true  #--logger trx --results-directory $(Agent.TempDirectory)
+    #     arguments: 'KeyVault-Rotation-Csharp.sln --configuration $(buildConfiguration) --no-build --no-restore --verbosity normal --logger "console;verbosity=detailed" --collect:"XPlat Code Coverage"'
+    #   displayName: 'dotnet test $(imageName) --configuration $(buildConfiguration)'
 
-    - task: CmdLine@2
-      inputs:
-        script: 'ls -alt $(Agent.TempDirectory)/**/coverage.cobertura.xml'
-      displayName: 'list coverage xml files'
+    # - task: CmdLine@2
+    #   inputs:
+    #     script: 'ls -alt $(Agent.TempDirectory)/**/coverage.cobertura.xml'
+    #   displayName: 'list coverage xml files'
 
-    - task: PublishCodeCoverageResults@1
-      name: 'coverage'
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
-        failIfCoverageEmpty: false
-      displayName: 'publish code coverage'
+    # - task: PublishCodeCoverageResults@1
+    #   name: 'coverage'
+    #   inputs:
+    #     codeCoverageTool: Cobertura
+    #     summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+    #     failIfCoverageEmpty: false
+    #   displayName: 'publish code coverage'
 
     # test task is publishing trx
     # - task: PublishTestResults@2
